@@ -92,5 +92,28 @@ void Controller::notifyCompleted()
 // added T.Takahashi
 int Controller::getSSDistance()
 {
-  return sonarSensor.getDistance();
+  int distance = sonarSensor.getDistance();
+
+  // センサが物体を認識していない時は-1になるため1000に置き換える
+  if(distance == -1) distance = 1000;
+
+  return distance; 
+}
+
+// 中央ボタンの押下状態を取得
+bool Controller::getEnterButton()
+{
+  return ev3_button_is_pressed(ENTER_BUTTON);
+}
+
+// 正面から見て左ボタンの押下状態を取得
+bool Controller::getLeftButton()
+{
+  return ev3_button_is_pressed(LEFT_BUTTON);
+}
+
+// 正面から見て右ボタンの押下状態を取得
+bool Controller::getRightButton()
+{
+  return ev3_button_is_pressed(RIGHT_BUTTON);
 }

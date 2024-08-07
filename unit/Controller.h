@@ -68,8 +68,23 @@ class Controller {
    */
   void notifyCompleted();
 
-// added T.Takahashi
+  // added T.Takahashi
   int getSSDistance();
+
+  /**
+   * 中央ボタンの押下状態を取得
+   */
+  bool getEnterButton();
+
+  /**
+   * 正面から見て左ボタンの押下状態を取得
+   */
+  bool getLeftButton();
+
+  /**
+   * 正面から見て右ボタンの押下状態を取得
+   */
+  bool getRightButton();
   
  private:
   ev3api::ColorSensor colorSensor;
