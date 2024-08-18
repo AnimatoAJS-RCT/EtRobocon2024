@@ -77,11 +77,15 @@ void main_task(intptr_t unused)
 
   // 周期ハンドラ開始
   sta_cyc(CYC_TRACER);
+  // デバッグ用：カラーセンサーの値を出力し続ける
+  //sta_cyc(DEBUG_COLOR_CYC);
 
   slp_tsk();  // バックボタンが押されるまで待つ
 
   // 周期ハンドラ停止
   stp_cyc(CYC_TRACER);
+  // デバッグ用：カラーセンサーの値を出力し続ける
+  //stp_cyc(DEBUG_COLOR_CYC);
 
   user_system_destroy();  // 終了処理
 
@@ -99,5 +103,19 @@ void tracer_task(intptr_t exinf)
     gRandomWalker->run();  // 走行
   }
 
+  ext_tsk();
+}
+
+/**
+ * デバッグ用タスク
+ * カラーセンサーの値を出力する
+ */
+void debug_color_task(intptr_t exinf)
+{
+  Controller controller;
+  rgb_raw_t rgb = controller.getRawColor();
+  double bright = controller.getBrightness();
+  int colorNumber = controller.getColorNumber();
+  printf("RGB: %d %d %d bright: %lf colorNumber: %d\n", rgb.r, rgb.g, rgb.b, bright, colorNumber);
   ext_tsk();
 }
