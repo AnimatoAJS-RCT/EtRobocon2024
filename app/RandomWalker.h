@@ -46,7 +46,7 @@ class RandomWalker {
 
   static const int MIN_TIME;
   static const int MAX_TIME;
-  static constexpr int BRIGHTNESS_TH = 32;   // 輝度の閾値(白：61、黒：3)
+  static constexpr int BRIGHTNESS_TH = 52;   // 輝度の閾値(白：61、黒：3)
   static constexpr bool LEFT_EDGE = true;    // 左エッジ
   static constexpr bool RIGHT_EDGE = false;  // 右エッジ
 

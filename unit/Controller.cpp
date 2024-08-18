@@ -11,12 +11,12 @@ Controller::Controller()
 
 // 輝度を取得
 // 参考: https://tomari.org/main/java/color/ccal.html
-int Controller::getBrightness()
+double Controller::getBrightness()
 {
   // RGBモードと光センサモードを併用すると動作が悪くなるためRGBモードで取得する
   // 参考: https://qiita.com/kawanon868/items/5d52eb291c3f71af0419
   rgb_raw_t rgb = getRawColor();
-  int brightness = std::max({ rgb.r, rgb.g, rgb.b }) * 100 / 255;  // 明度を取得して0-100に正規化
+  double brightness = (double)std::max({ rgb.r, rgb.g, rgb.b }) * 100 / 255;  // 明度を取得して0-100に正規化
   return brightness;
 }
 
@@ -29,12 +29,13 @@ rgb_raw_t Controller::getRawColor()
 }
 
 // 色を取得
-/*int Controller::getColorNumber()
+// https://www.toppers.jp/ev3pf/EV3RT_CXX_API_Reference/classev3api_1_1_color_sensor.html#a1e9c3f8e0d18c579b99fb21b838fa01f
+colorid_t Controller::getColorNumber()
 {
-  int color;
-  color = colorSensor.getColorNumber;
+  colorid_t color;
+  color = colorSensor.getColorNumber();
   return color;
-}*/
+}
 
 // 左モータ角位置取得
 int Controller::getLeftCount()

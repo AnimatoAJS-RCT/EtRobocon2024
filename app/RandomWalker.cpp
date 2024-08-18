@@ -28,8 +28,8 @@ RandomWalker::RandomWalker(const Starter* starter, SimpleTimer* simpleTimer)
 
   srand(clock->now());     // 乱数をリセットする
   generateCourseList();    // courseListを生成する。
-  generateCourseList_2();  // courseList2を生成する。
-  generateCourseList_3();  // courseList3を生成する。
+  //generateCourseList_2();  // courseList2を生成する。
+  //generateCourseList_3();  // courseList3を生成する。
 
   delete clock;
 }
@@ -87,39 +87,35 @@ void RandomWalker::generateCourseList()
 {
   // ノーマルコースに必要なTracerインスタンスをcourseListに追加する
   if(IS_LEFT_COURSE) {  // Lコースの場合
-    courseList.push_back(
-        new ScenarioTracer(100, 40, 40));  // 初速が早いとブレるため少しだけ低速で走る
-    courseList.push_back(
-        new LineTracer(1300, BRIGHTNESS_TH, 90, LEFT_EDGE, PidGain(0.30, 0.12, 0.12)));
-    courseList.push_back(new ScenarioTracer(1350, 100, 100));
-    courseList.push_back(new ScenarioTracer(550, 100, 60));  // 第一カーブ
-    courseList.push_back(
-        new LineTracer(800, BRIGHTNESS_TH, 80, RIGHT_EDGE, PidGain(0.25, 0.04, 0.04)));
-    courseList.push_back(new ScenarioTracer(700, 100, 100));
-    courseList.push_back(new ScenarioTracer(590, 100, 60));  // 第二カーブ
-    courseList.push_back(new ScenarioTracer(
-        300, 100, 100));  // 青線でライントレースが狂うため少しシナリオトレースする
-    courseList.push_back(
-        new LineTracer(800, BRIGHTNESS_TH, 70, LEFT_EDGE, PidGain(0.24, 0.04, 0.04)));
-    courseList.push_back(
-        new LineTracer(300, BRIGHTNESS_TH, 60, LEFT_EDGE, PidGain(0.21, 0.04, 0.04)));
+    courseList.push_back(new ScenarioTracer(100, 40, 40));  // 初速が早いとブレるため少しだけ低速で走る
+    courseList.push_back(new LineTracer(3600, BRIGHTNESS_TH, 90, RIGHT_EDGE, PidGain(2, 0.01, 0.4)));
+    courseList.push_back(new ScenarioTracer(500, 100, 100)); //ループ部を突っ切る
+    courseList.push_back(new LineTracer(4000, BRIGHTNESS_TH, 90, RIGHT_EDGE, PidGain(2, 0.01, 0.4), colorid_t::COLOR_BLUE)); // 青で停止
+    courseList.push_back(new ScenarioTracer(300, 100, 70));
+    courseList.push_back(new LineTracer(4000, BRIGHTNESS_TH, 90, RIGHT_EDGE, PidGain(2, 0.01, 0.4), colorid_t::COLOR_BLUE)); // 青で停止
+    courseList.push_back(new ScenarioTracer(400, 80, 100));
+    courseList.push_back(new ScenarioTracer(350, 60, 100, colorid_t::COLOR_BLACK)); // 黒で停止
+    courseList.push_back(new LineTracer(4000, BRIGHTNESS_TH, 90, LEFT_EDGE, PidGain(2, 0.01, 0.4), colorid_t::COLOR_BLUE)); // 青で停止
+    courseList.push_back(new ScenarioTracer(300, 70, 100));
+    courseList.push_back(new ScenarioTracer(1000, 100, 100, colorid_t::COLOR_BLACK)); // 黒で停止
+    courseList.push_back(new ScenarioTracer(400, 100, 45));
+    
+    courseList.push_back(new LineTracer(800, BRIGHTNESS_TH, 90, LEFT_EDGE, PidGain(2, 0.01, 0.4), colorid_t::COLOR_BLUE)); // 青で停止
   } else {  // Rコースの場合
-    courseList.push_back(
-        new ScenarioTracer(100, 40, 40));  // 初速が早いとブレるため少しだけ低速で走るq
-    courseList.push_back(
-        new LineTracer(1300, BRIGHTNESS_TH, 90, RIGHT_EDGE, PidGain(0.30, 0.12, 0.12)));
-    courseList.push_back(new ScenarioTracer(1350, 100, 100));
-    courseList.push_back(new ScenarioTracer(550, 60, 100));  // 第一カーブ
-    courseList.push_back(
-        new LineTracer(800, BRIGHTNESS_TH, 80, LEFT_EDGE, PidGain(0.25, 0.04, 0.04)));
-    courseList.push_back(new ScenarioTracer(680, 100, 100));
-    courseList.push_back(new ScenarioTracer(590, 60, 100));  // 第二カーブ
-    courseList.push_back(new ScenarioTracer(
-        300, 100, 100));  // 青線でライントレースが狂うため少しシナリオトレースする
-    courseList.push_back(
-        new LineTracer(800, BRIGHTNESS_TH, 80, RIGHT_EDGE, PidGain(0.24, 0.04, 0.04)));
-    courseList.push_back(
-        new LineTracer(300, BRIGHTNESS_TH, 60, RIGHT_EDGE, PidGain(0.21, 0.04, 0.04)));
+    courseList.push_back(new ScenarioTracer(100, 40, 40));  // 初速が早いとブレるため少しだけ低速で走る
+    courseList.push_back(new LineTracer(3600, BRIGHTNESS_TH, 90, LEFT_EDGE, PidGain(2, 0.01, 0.4)));
+    courseList.push_back(new ScenarioTracer(500, 100, 100)); //ループ部を突っ切る
+    courseList.push_back(new LineTracer(4000, BRIGHTNESS_TH, 90, LEFT_EDGE, PidGain(2, 0.01, 0.4), colorid_t::COLOR_BLUE)); // 青で停止
+    courseList.push_back(new ScenarioTracer(300, 70, 100));
+    courseList.push_back(new LineTracer(4000, BRIGHTNESS_TH, 90, LEFT_EDGE, PidGain(2, 0.01, 0.4), colorid_t::COLOR_BLUE)); // 青で停止
+    courseList.push_back(new ScenarioTracer(400, 100, 80));
+    courseList.push_back(new ScenarioTracer(350, 100, 60, colorid_t::COLOR_BLACK)); // 黒で停止
+    courseList.push_back(new LineTracer(4000, BRIGHTNESS_TH, 90, RIGHT_EDGE, PidGain(2, 0.01, 0.4), colorid_t::COLOR_BLUE)); // 青で停止
+    courseList.push_back(new ScenarioTracer(300, 100, 70));
+    courseList.push_back(new ScenarioTracer(1000, 100, 100, colorid_t::COLOR_BLACK)); // 黒で停止
+    courseList.push_back(new ScenarioTracer(400, 45, 100));
+
+    courseList.push_back(new LineTracer(800, BRIGHTNESS_TH, 90, RIGHT_EDGE, PidGain(2, 0.01, 0.4), colorid_t::COLOR_BLUE)); // 青で停止
   }
 }
 

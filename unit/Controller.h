@@ -22,13 +22,20 @@ class Controller {
    * 輝度を取得
    * @return 反射光の強さ(0-100)
    */
-  int getBrightness();
+  double getBrightness();
 
   /**
    * RGB値を取得
    * @return RGB値
    */
   rgb_raw_t getRawColor();
+
+  /**
+   * 識別した色を取得
+   * https://www.toppers.jp/ev3pf/EV3RT_CXX_API_Reference/classev3api_1_1_color_sensor.html#a1e9c3f8e0d18c579b99fb21b838fa01f
+   * @return 識別した色
+   */
+  colorid_t getColorNumber();
 
   /**
    * 左モータ角位置取得

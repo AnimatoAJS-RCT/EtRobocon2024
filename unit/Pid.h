@@ -1,6 +1,8 @@
 #ifndef PID_H
 #define PID_H
 
+#include <vector>
+
 // PIDゲインを保持する構造体
 struct PidGain {
  public:
@@ -23,8 +25,9 @@ class Pid {
    * @param _ki Iゲイン
    * @param _kd Dゲイン
    * @param _targetValue 目標値
+   * @param _differenceRange 微分に使用する過去の偏差の数 1~(理想は1でよいが、EV3RTのセンサー値が短時間では更新されない場合があるため複数の過去の値で微分できるようにする)
    */
-  Pid(double _kp, double _ki, double _kd, double _targetValue);
+  Pid(double _kp, double _ki, double _kd, double _targetValue, unsigned int _differenceRange = 1);
 
   /**
    * @fn double calculatePid(double currentValue, double delta = 0.01);
@@ -37,9 +40,10 @@ class Pid {
 
  private:
   PidGain gain;
-  double preDeviation;  //前回の偏差
+  std::vector<double> pastDeviations;  //過去の偏差
   double integral;      //偏差の累積
   double targetValue;   //目標値
+  unsigned int differenceRange;  //微分に使用する過去の偏差の数
 };
 
 #endif
